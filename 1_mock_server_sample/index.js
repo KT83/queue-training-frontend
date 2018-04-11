@@ -9,21 +9,18 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
-
-app.use(bodyParser.json());
-
+// 第一引数はエンドポイント名
 app.get('/helloworld', function (req, res) {
   console.log('/helloworld called with get method.')
   sleep.sleep(1);
+  // 返す内容
   res.send({
     meesage: "Hello, world."
   })
   console.log('message sent.')
 });
 
+// ニュースのリストを返す
 app.get('/news', function (req, res) {
   console.log('/news called with get method.')
   sleep.sleep(1);
@@ -44,6 +41,7 @@ app.get('/news', function (req, res) {
   console.log('message sent.')
 });
 
+// ニュースを一つ返す
 app.get('/news/:id', function (req, res) {
   console.log('/news/:id called with get method.')
   sleep.sleep(1);
@@ -56,6 +54,7 @@ app.get('/news/:id', function (req, res) {
   console.log('message sent.')
 });
 
+// 3003番ポートで待機する
 app.listen(3003, function () {
   console.log('dev server listening on port 3003!');
 });
