@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <title>ajax sample</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  </head>
+  <body>
+    <script
+      src="http://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+    <h1>ajax sample</h1>
+    <div class="container">
+      <div class="content_area row">
+      </div>
+    </div>
+    <script>
+      $(document).ready(function(){
+        // axiosで非同期でAPIを
+        axios.get('http://localhost:3003/news')
+        .then(
+          // この関数は非同期のレスポンスを待つ
+          (response)=> {
+            console.log(response.data)
+            for(var i = 0; i < response.data.length; i++) {
+              var eachData = response.data[i]
+              var title = eachData.title
+              var text = eachData.text
+              var imgUrl = eachData.img_url
+              // $('.content_area').append('<img src=\"' + imgUrl + '\" >');
+              // $('.content_area').append('<h2>' + title + '</h2>');
+              // $('.content_area').append('<p>' + text + '</p>')
+              $('.content_area').append(
+                `
+                <div class="col-sm-4">
+                <div class="card" styl="width: 100%;">
+                  <img class="card-img-top" src="
+                ` + imgUrl + `
+                  " alt="Card image cap">
+                  <div class="card-body">
+                    <h5 class="card-title">
+                ` + title + `
+                    </h5>
+                    <p class="card-text">
+                ` + text +  `    
+                    </p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                  </div>
+                </div>
+                </div>
+                `
+              );
+            }
+          }
+        )
+      });
+    </script>
+  </body>
+</html>
