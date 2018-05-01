@@ -1,63 +1,40 @@
 <template>
   <div class="hello">
-    <h1>Ajax sample</h1>
-    <div class="container">
-      <div class="row">
-        <div v-for="data in news" class="col-sm-4">
-          <div class="card" style="width: 100%;">
-            <img class="card-img-top" alt="Card image cap" :src="data.img_url">
-            <div class="card-body">
-              <h5 class="card-title my-card-title"> {{ data.title }} </h5>
-              <p class="card-text">{{ data.text }} </p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <h1>{{ msg }}</h1>
+    <h2>{{ text }}</h2>
+    <h2>{{ greeting }}</h2>
+    <!-- <button @click="helloToConsole">Say hello</button>
+    <button @click="helloTime">What time?</button> -->
   </div>
 </template>
-
 <script>
-import axios from 'axios'
 export default {
-  name: 'HelloWorld',
-  data () {
+  props: [],
+  data: () => {
     return {
       msg: 'Welcome to Your Vue.js App',
-      news: []
+      text: 'Hello,we are Queue.',
+      hello: 'Hello',
+      queue: 'we are Queue',
     }
   },
-  created () {
-    axios.get('http://localhost:3003/news')
-    .then((response) => {
-      console.log(response.data)
-      this.news = response.data 
-    })
-  },
   methods: {
-
+    helloToConsole() {
+        console.log('hello world')
+      }
+  },
+  computed: {
+    greeting () {
+      return this.hello + this.queue
+    }
+  },
+  watch: {},
+  created: {},
+  mounted: function () {
+    console.log(String(this.hello))
+    console.log(this.queue)
+    console.log(this.hello + this.queue)
+    console.log(this.greeting)
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-.my-card-title{
-  text-align: left;
-}
-</style>
